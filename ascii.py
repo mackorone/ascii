@@ -1,38 +1,25 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-import numpy as np
 import sys
 
 # Two different ramps
 ramp = ' .:-=+*#%@'
-ramp = u' ░▒▓█'
+ramp = u'█▓▒░ '
 
-def char_array_to_string(array):
-    out = ''
-    for r in range(len(array)):
-        for c in range(len(array[0])):
-            out += array[r][c] * 2
-        out += '\n'
-    return out
+def pixel_to_char(pixel):
+    brightness = pixel/255.0
+    ramp_index = int(len(ramp)*brightness)
+    return ramp[ramp_index]
 
-def get_char_from_ramp(pixel_array):
-    percent_bright = np.mean(pixel_array)/255.0
-    index = int(len(ramp)*percent_bright)
-    return ramp[index]
-
-# Specify the window size
-window_rows = 12
-window_cols = 12
-
-# Infinity
+compression_factor = 12
 cap = cv2.VideoCapture(0)
+
 while(True):
     ret, img = cap.read()
-    output_rows = len(img)/window_rows
-    output_cols = len(img[0])/window_cols
-    output_array = [['0'] * output_cols for i in range(output_rows)]
-    for r in range(output_rows):
-        for c in range(output_cols):
-            output_array[r][c] = get_char_from_ramp(img[r*window_rows, c*window_cols])
-    print char_array_to_string(output_array)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    for row in range(len(img)/compression_factor):
+        for col in range(len(img[0])/compression_factor):
+            pixel = img[row*compression_factor][col*compression_factor]
+            sys.stdout.write(pixel_to_char(pixel) * 2)
+        sys.stdout.write('\n')
