@@ -3,9 +3,6 @@ import cv2
 import os
 import sys
 
-# TODO: Use less CPU
-# TODO: CTRL-C???
-
 # Returns the number of rows and columns of characters
 def get_winsize():
     rows, columns = os.popen('stty size', 'r').read().split()
