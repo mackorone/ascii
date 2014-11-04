@@ -9,7 +9,7 @@ def get_winsize():
     return int(rows), int(columns)
 
 def pixel_to_char(pixel):
-    ramp = ' .:-=+*#%@'
+    ramp = '  .:-=+*#%@'
     brightness = pixel/255.0
     ramp_index = int(len(ramp)*brightness)
     return ramp[ramp_index]
