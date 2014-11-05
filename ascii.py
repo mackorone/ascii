@@ -44,7 +44,7 @@ def main(arg):
                 if curses.is_term_resized(rows, columns):
                     return
                 try:
-                    pixel = img[row*compression_factor][col*compression_factor]
+                    pixel = img[row * compression_factor][col * compression_factor]
                     char = pixel_to_char(pixel)
                     win.addch(row + padding_rows, col + padding_cols, char)
                 except:
