@@ -3,7 +3,6 @@ import cv2
 import os
 import sys
 
-# Returns the number of rows and columns of characters
 def get_winsize():
     rows, columns = os.popen('stty size', 'r').read().split()
     return int(rows), int(columns)
@@ -36,7 +35,7 @@ def main(arg):
     # Function for drawing the image as characters
     def draw(img):
         output_rows = len(img)/compression_factor
-        output_cols = len(img[0])/compression_factor
+        output_cols = len(img[0])/compression_factor * 2
         padding_rows = (rows - output_rows) / 2
         padding_cols = (columns - output_cols) / 2
         for row in range(output_rows):
@@ -44,7 +43,7 @@ def main(arg):
                 if curses.is_term_resized(rows, columns):
                     return
                 try:
-                    pixel = img[row * compression_factor][col * compression_factor]
+                    pixel = img[row * compression_factor][col // 2 * compression_factor]
                     char = pixel_to_char(pixel)
                     win.addch(row + padding_rows, col + padding_cols, char)
                 except:
