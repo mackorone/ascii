@@ -1,6 +1,6 @@
 # ascii
 
-Render webcam video in the terminal, built with [opencv-python](https://pypi.org/project/opencv-python/)
+Render webcam video to the terminal, built with [opencv-python](https://pypi.org/project/opencv-python/)
 
 ## Quick start
 
