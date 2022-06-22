@@ -4,6 +4,7 @@ import curses
 import cv2
 import os
 import sys
+import time
 
 
 def get_winsize():
@@ -68,4 +69,7 @@ def main(arg):
 
 
 # Ensure curses is cleaned up correctly
-curses.wrapper(main)
+try:
+    curses.wrapper(main)
+except KeyboardInterrupt:
+    pass
